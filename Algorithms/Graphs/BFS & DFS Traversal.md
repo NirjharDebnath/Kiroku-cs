@@ -104,22 +104,19 @@ vector<int> dfsIterative(int n, const vector<vector<int>>& graph, int start) {
 
 ### 1. Recurrence / Cost Relation & Time Complexity
 Traversal scans each vertex and each edge at most constant times:
-\[
-T(V,E) = \Theta(V + E)
-\]
+$$T(V,E) = \Theta(V + E)$$
 
 DFS recursive relation on tree-like component:
-\[
-T(u) = \sum_{v \in children(u)} T(v) + O(1)
-\]
-Aggregated over all vertices gives \(\Theta(V+E)\).
+$$T(u) = \sum_{v \in children(u)} T(v) + O(1)$$
+
+Aggregated over all vertices gives $\Theta(V+E)$.
 
 ### 2. Space Complexity
 | Traversal | Auxiliary Space |
 |---|---|
-| BFS | \(O(V)\) for queue + visited |
-| DFS recursive | \(O(V)\) visited + \(O(h)\) recursion stack (worst \(O(V)\)) |
-| DFS iterative | \(O(V)\) stack + visited |
+| BFS | $O(V)$ for queue + visited |
+| DFS recursive | $O(V)$ visited + $O(h)$ recursion stack (worst $O(V)$) |
+| DFS iterative | $O(V)$ stack + visited |
 
 ### 3. Prerequisites & Assumptions
 - Graph represented by adjacency list
@@ -135,15 +132,15 @@ Aggregated over all vertices gives \(\Theta(V+E)\).
 ### 5. Variations & Optimizations
 | Variant | Use-case | Complexity |
 |---|---|---|
-| Multi-source BFS | Simultaneous shortest levels from many sources | \(O(V+E)\) |
-| 0-1 BFS | Weighted graph with 0/1 edges | \(O(V+E)\) |
-| DFS timestamps (tin/tout) | Ancestor checks, bridges/articulation prep | \(O(V+E)\) |
+| Multi-source BFS | Simultaneous shortest levels from many sources | $O(V+E)$ |
+| 0-1 BFS | Weighted graph with 0/1 edges | $O(V+E)$ |
+| DFS timestamps (tin/tout) | Ancestor checks, bridges/articulation prep | $O(V+E)$ |
 | Iterative deepening DFS | Memory-limited deep search | Repeated DFS layers |
 
 ### 6. Best / Worst / Average Case
-- Best: \(\Theta(1)\) if graph has one node and no edges
-- Typical connected graph: \(\Theta(V+E)\)
-- Worst: \(\Theta(V+E)\)
+- Best: $\Theta(1)$ if graph has one node and no edges
+- Typical connected graph: $\Theta(V+E)$
+- Worst: $\Theta(V+E)$
 
 ### 7. Comparison with Similar Algorithms
 | Algorithm | Structure | Typical use |
@@ -154,9 +151,8 @@ Aggregated over all vertices gives \(\Theta(V+E)\).
 
 ### 8. Theoretical Lower Bounds
 Any complete traversal must inspect all reachable vertices/edges, so lower bound is:
-\[
-\Omega(V + E)
-\]
+$$\Omega(V + E)$$
+
 BFS/DFS match this, hence asymptotically optimal for full traversal.
 
 ### 9. Recurrence Tree / Layer Analysis
@@ -186,12 +182,12 @@ With edge scans => O(V+E)
 - Traverse disconnected graph and count connected components.
 
 ### 11. Edge Cases & Implementation Details
-- Empty graph (`V=0`): return empty traversal
+- Empty graph ($V=0$): return empty traversal
 - Self-loops: harmless with visited checks
 - Parallel edges: may cause repeated checks, still linear total
 - Disconnected graph: wrap traversal in outer loop over all vertices
 
 ## Summary for Revision
-- BFS and DFS are foundational \(\Theta(V+E)\) traversals
+- BFS and DFS are foundational $\Theta(V+E)$ traversals
 - BFS is level-based (shortest path in unweighted graphs)
 - DFS is depth-based (structural analysis and graph properties)
