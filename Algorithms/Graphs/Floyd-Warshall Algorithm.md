@@ -202,8 +202,8 @@ Final all‑pairs shortest distances:
 |-----------|------|-------|----------------|-----------------|
 | **Floyd‑Warshall** | $O(V^3)$ | $O(V^2)$ | Yes | Detects |
 | Johnson’s | $O(VE \log V)$ | $O(V+E)$ | Yes (reweight with Bellman‑Ford) | Detects |
-| $|V| \times$ Dijkstra (binary heap) | $O(V(E+V)\log V)$ | $O(V+E)$ | No | N/A |
-| $|V| \times$ Bellman‑Ford | $O(V^2 E)$ | $O(V+E)$ | Yes | Detects (per source) |
+| $V \times$ Dijkstra(binaryheap) | $O(V(E+V)\log V)$ | $O(V+E)$ | No | N/A |
+| $V \times$ Bellman‑Ford | $O(V^2 E)$ | $O(V+E)$ | Yes | Detects (per source) |
 | Repeated BFS (unweighted) | $O(V(V+E))$ | $O(V+E)$ | No | N/A |
 
 **Note**: For dense graphs ($E \approx V^2$), Floyd‑Warshall is competitive. For sparse graphs, Johnson’s algorithm is better.
