@@ -1,46 +1,42 @@
-## Dijkstra Algorithm
+## Dijkstra's Algorithm
 
-Topic - `Graph Theory / Greedy`
+Topic - `Shortest Path (Single Source)`
 
-### Problem Type
-Single Source Shortest Path (SSSP) in weighted graphs with **non-negative** edge weights.
+### Standard Version (Using Priority Queue)
 
-### Iterative Version (Priority Queue)
 ```cpp
-#include <bits/stdc++.h>
+#include <vector>
+#include <queue>
+#include <climits>
+
 using namespace std;
 
-using ll = long long;
-const ll INF = (1LL << 62); // large sentinel to avoid overflow in additions
-
-struct Edge {
-    int to;
-    ll w;
-};
-
-vector<ll> dijkstra(int n, const vector<vector<Edge>>& graph, int source, vector<int>& parent) {
-    vector<ll> dist(n, INF);
-    parent.assign(n, -1);
-
-    // min-heap: (distance, node)
-    priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> pq;
-
-    dist[source] = 0;
-    pq.push({0, source});
-
+// Returns shortest distance array from source 'src'
+// graph: adjacency list of pairs (neighbor, weight)
+vector<int> dijkstra(const vector<vector<pair<int, int>>>& graph, int src) {
+    int n = graph.size();
+    vector<int> dist(n, INT_MAX);
+    dist[src] = 0;
+    
+    // Min-heap: pair (distance, vertex)
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    pq.push({0, src});
+    
     while (!pq.empty()) {
-        auto [du, u] = pq.top();
+        int u_dist = pq.top().first;
+        int u = pq.top().second;
         pq.pop();
-
-        // Skip stale heap entries
-        if (du != dist[u]) continue;
-
-        for (const auto& e : graph[u]) {
-            // Guard overflow in du + e.w
-            if (du <= INF - e.w && du + e.w < dist[e.to]) {
-                dist[e.to] = du + e.w;
-                parent[e.to] = u;
-                pq.push({dist[e.to], e.to});
+        
+        // If the popped distance is greater than recorded, skip
+        if (u_dist > dist[u]) continue;
+        
+        for (auto& edge : graph[u]) {
+            int v = edge.first;
+            int weight = edge.second;
+            
+            if (dist[u] + weight < dist[v]) {
+                dist[v] = dist[u] + weight;
+                pq.push({dist[v], v});
             }
         }
     }
@@ -48,105 +44,241 @@ vector<ll> dijkstra(int n, const vector<vector<Edge>>& graph, int source, vector
 }
 ```
 
-### Recursive Helper (Path Reconstruction)
+### Version with Path Reconstruction
+
 ```cpp
-void buildPathRecursive(int v, const vector<int>& parent, vector<int>& path) {
-    if (v == -1) return;
-    buildPathRecursive(parent[v], parent, path);
-    path.push_back(v);
+vector<int> dijkstraWithPath(const vector<vector<pair<int, int>>>& graph, int src, int target, vector<int>& parent) {
+    int n = graph.size();
+    vector<int> dist(n, INT_MAX);
+    parent.assign(n, -1);
+    dist[src] = 0;
+    
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    pq.push({0, src});
+    
+    while (!pq.empty()) {
+        int u_dist = pq.top().first;
+        int u = pq.top().second;
+        pq.pop();
+        if (u_dist > dist[u]) continue;
+        
+        for (auto& edge : graph[u]) {
+            int v = edge.first;
+            int w = edge.second;
+            if (dist[u] + w < dist[v]) {
+                dist[v] = dist[u] + w;
+                parent[v] = u;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+    return dist;
+}
+
+// Reconstruct path from src to target using parent array
+vector<int> getPath(const vector<int>& parent, int target) {
+    vector<int> path;
+    for (int v = target; v != -1; v = parent[v])
+        path.push_back(v);
+    reverse(path.begin(), path.end());
+    return path;
 }
 ```
 
-### Graph-Theory Concept
-- Dijkstra is a **greedy shortest-path algorithm**.
-- Invariant: once a node `u` is extracted with minimum tentative distance, its distance is final (valid only when `w(e) >= 0`).
-- It can be viewed as building a shortest-path tree rooted at source `s`.
+### Dry Run Example
 
-### 1. Recurrence Relation & Time Complexity Derivation
-Dijkstra is iterative; no divide-and-conquer recursion in the main algorithm. For analysis, we decompose costs:
+**Graph** (directed, but works for undirected as well):
 
-\[
-T(V,E) = O(V) + O(V\log V) + O(E\log V) = O((V+E)\log V)
-\]
-
-- Initialization: \(O(V)\)
-- Heap extract-min operations: up to \(V\), each \(O(\log V)\)
-- Relaxation updates pushed to heap: up to \(E\), each \(O(\log V)\)
-
-For adjacency matrix + linear min scan:
-\[
-T(V) = O(V^2)
-\]
-
-### 2. Space Complexity
-- Distances + parent arrays: \(O(V)\)
-- Priority queue: up to \(O(E)\) with duplicate pushes
-- Graph storage: \(O(V+E)\)
-- Auxiliary (excluding graph): \(O(V+E)\) worst-case, commonly \(O(V)\) active
-
-### 3. Prerequisites & Assumptions
-- All edge weights must satisfy \(w(e) \ge 0\)
-- Graph can be directed or undirected
-- Weighted representation via adjacency list
-- Source vertex is valid index in \([0, V-1]\)
-
-### 4. Common Pitfalls & Traps
-- Using Dijkstra with negative edges gives incorrect answers
-- Integer overflow in `dist[u] + w`
-- Not discarding stale heap entries (can hurt performance)
-- Using `int` when path sums exceed 32-bit limits
-
-### 5. Variations & Optimizations
-| Variant | Idea | Time |
-|---|---|---|
-| Binary-heap Dijkstra | Standard approach | \(O((V+E)\log V)\) |
-| Fibonacci heap | Faster decrease-key theoretically | \(O(E + V\log V)\) |
-| 0-1 BFS | Edges only 0 or 1 | \(O(V+E)\) |
-| Dial’s algorithm | Small non-negative integer weights | \(O(VW + E)\) |
-| Multi-source Dijkstra | Push all sources with dist 0 | Same asymptotic |
-
-### 6. Best / Worst / Average Case
-- Best: \(O((V+E)\log V)\) (asymptotically same; constants smaller on sparse/easy graphs)
-- Average: \(O((V+E)\log V)\)
-- Worst: \(O((V+E)\log V)\)
-
-### 7. Comparison with Similar Algorithms
-| Algorithm | Negative edges | Detect negative cycle | Time |
-|---|---|---|---|
-| Dijkstra | No | No | \(O((V+E)\log V)\) |
-| Bellman-Ford | Yes | Yes | \(O(VE)\) |
-| BFS (unweighted) | N/A (unit edges) | No | \(O(V+E)\) |
-| Floyd-Warshall | Yes | Yes (diagonal check) | \(O(V^3)\) |
-
-### 8. Theoretical Lower Bounds
-- In comparison-based priority-queue settings, SSSP with arbitrary non-negative weights is bounded by PQ operation lower bounds.
-- For sparse graphs and general weights, no known algorithm beats near-linear/log factors in standard RAM without extra assumptions.
-
-### 9. Recurrence Tree / Level-Wise Analysis
-Dijkstra has no recursion tree in its core loop. A useful exam-friendly level view is operation aggregation:
-
-```text
-Level 0: Initialize arrays -> O(V)
-Level 1: Extract-min operations (<= V times) -> O(V log V)
-Level 2: Edge relaxations (E checks, <= E pushes) -> O(E log V)
-Total: O((V+E) log V)
+```
+Vertices: 0, 1, 2, 3, 4
+Edges (u -> v, weight):
+0->1 (4), 0->2 (1)
+1->3 (1), 2->1 (2), 2->3 (5)
+3->4 (3), 4->3 (2)
 ```
 
-### 10. Common Exam Questions
-- Why does non-negative weight guarantee correctness?
-- Show a counterexample with one negative edge.
-- Derive \(O((V+E)\log V)\) for adjacency list + heap.
-- Compare Dijkstra and Bellman-Ford use-cases.
-- How to print the shortest path using `parent[]`?
+**Adjacency list**:
+0: (1,4), (2,1)
+1: (3,1)
+2: (1,2), (3,5)
+3: (4,3)
+4: (3,2)
 
-### 11. Edge Cases & Implementation Details
-- Disconnected graph: unreachable nodes remain \(\infty\)
-- Self-loops and parallel edges: handled naturally by relaxations
-- Very large weights: use `long long` and overflow guard
-- Source equals destination: distance is zero
+**Run Dijkstra from source = 0**:
+
+| Step | Vertex popped | dist[] after relaxation | Priority queue contents (dist, vertex) |
+|------|---------------|------------------------|------------------------------------------|
+| Init | –             | [0, ∞, ∞, ∞, ∞]        | (0,0) |
+| 1    | 0             | [0, 4, 1, ∞, ∞]        | (1,2), (4,1) |
+| 2    | 2 (dist=1)    | [0, 3, 1, 6, ∞]        | (3,1), (4,1), (6,3) |
+| 3    | 1 (dist=3)    | [0, 3, 1, 4, ∞]        | (4,1), (4,3), (6,3) |
+| 4    | 1? Actually (4,1) but dist[1]=3 → skip. (4,3) popped next | (4,3): relax 3→4: dist[4]=4+3=7 | (6,3), (7,4) |
+| 5    | 3 (dist=4)    | relax 3→4: 4+3=7 < 7? no | (7,4) |
+| 6    | 4 (dist=7)    | relax 4→3: 7+2=9 not better | empty |
+
+Final distances: [0, 3, 1, 4, 7]
+
+**Shortest path 0→4**: 0→2→1→3→4 (weights 1+2+1+3 = 7)
+
+### Core Concepts
+
+- **Single‑source shortest path** for graphs with **non‑negative edge weights**.
+- Uses **greedy** strategy: always relax the closest unprocessed vertex.
+- **Relaxation**: If `dist[u] + w(u,v) < dist[v]`, update `dist[v]`.
+- **Priority queue** (min‑heap) extracts the vertex with smallest tentative distance.
+
+### 1. Time Complexity
+
+| Implementation | Time Complexity |
+|----------------|-----------------|
+| Simple array (no heap) | $O(V^2)$ |
+| Binary heap + adjacency list | $O((V+E) \log V)$ |
+| Fibonacci heap | $O(E + V \log V)$ |
+
+**Explanation**: Each vertex extracted once ($O(\log V)$ per extract). Each edge relaxed once ($O(\log V)$ per relax). Total $O((V+E)\log V)$.
+
+**For dense graphs** ($E \approx V^2$), $O(V^2)$ array version can be faster than heap version due to overhead.
+
+### 2. Space Complexity
+
+- $O(V)$ for distance array + $O(V)$ for priority queue + $O(E)$ for adjacency list.
+- Total: $O(V+E)$.
+
+### 3. Prerequisites & Properties
+
+- **Non‑negative edge weights** – algorithm fails with negative weights (may give wrong results or infinite loops).
+- Works for both directed and undirected graphs.
+- **Greedy choice property**: The vertex with smallest tentative distance can be finalised.
+- **Optimal substructure**: Shortest path to a vertex contains shortest paths to intermediate vertices.
+
+### 4. Common Pitfalls & Implementation Traps
+
+- **Using a visited set too early** – wrong: a vertex’s distance might be improved after first extraction. Instead, use distance comparison to skip stale entries (as in code: `if (u_dist > dist[u]) continue;`).
+- **Integer overflow** when adding distances: ensure `dist[u] + weight` does not overflow `INT_MAX`. Use `if (dist[u] != INT_MAX && dist[u] + w < dist[v])`.
+- **Heap ordering** – use `greater<pair<int,int>>` for min‑heap. Default `priority_queue` is max‑heap.
+- **Forgetting to initialise** `dist[src] = 0`.
+- **Negative edge weights** – Dijkstra fails. Use Bellman‑Ford for negative edges (no negative cycles).
+- **Self‑loops** – ignored if non‑negative (dist[u] + w >= dist[u]).
+- **Multi‑edge** between same vertices: adjacency list can store all; relaxation handles min.
+
+### 5. Variations
+
+| Variation | Description | Key Modification |
+|-----------|-------------|------------------|
+| **Dijkstra with array** | For dense graphs | Extract min by scanning $O(V)$, total $O(V^2)$ |
+| **Bidirectional Dijkstra** | From source and target simultaneously | Stop when the two searches meet |
+| **A\* search** | Uses heuristic to guide search | Add heuristic value to priority |
+| **Dial’s algorithm** | For small integer weights | Uses bucket queue (buckets based on distance) |
+| **Radix heap** | Improves theoretical bound for integer weights | Specialised priority queue |
+| **Shortest path tree** | Stores predecessor for each vertex | Parent array during relaxation |
+
+### 6. Comparison with Other Shortest Path Algorithms
+
+| Algorithm | Time | Edge Weights | Negative Edges | Negative Cycles |
+|-----------|------|--------------|----------------|------------------|
+| **Dijkstra** | $O((V+E)\log V)$ | Non‑negative | No | N/A |
+| Bellman‑Ford | $O(VE)$ | Any | Yes (detects) | Detects |
+| SPFA (queue‑based Bellman‑Ford) | Average $O(E)$, worst $O(VE)$ | Any | Yes | Detects |
+| Floyd‑Warshall | $O(V^3)$ | Any (no negative cycles) | Yes | Detects (APSP) |
+| BFS (unweighted) | $O(V+E)$ | Uniform (unit) | No | N/A |
+
+### 7. Theoretical Insights
+
+- **Correctness proof**: By induction on the number of visited vertices. At each step, the extracted vertex has its final shortest distance because any alternative path would have to go through a vertex with larger distance.
+- **Greedy algorithm** – it works because edge weights are non‑negative, so a shorter path cannot later appear via an unprocessed vertex.
+- **If weights are non‑negative**, Dijkstra is optimal for single‑source shortest paths.
+
+### 8. Detailed Step‑by‑Step Dry Run with Relaxation
+
+**Graph**: 3 vertices, edges: 0→1 (5), 0→2 (2), 2→1 (1)
+
+```
+Initial: dist = [0, ∞, ∞], pq = [(0,0)]
+
+Step1: pop (0,0). Relax edges:
+0→1: 0+5 < ∞ → dist[1]=5, pq.push(5,1)
+0→2: 0+2 < ∞ → dist[2]=2, pq.push(2,2)
+Now pq = [(2,2), (5,1)]
+
+Step2: pop (2,2) (dist[2]==2). Relax edges from 2:
+2→1: 2+1=3 < dist[1]=5 → dist[1]=3, pq.push(3,1)
+pq = [(3,1), (5,1)]
+
+Step3: pop (3,1). dist[1]==3, relax edges from 1 (none). Skip stale (5,1) when popped.
+
+Result: dist = [0,3,2]
+```
+
+### 9. Common Questions on Dijkstra
+
+- **Why doesn’t Dijkstra work with negative weights?**  
+  Because a processed vertex’s distance may be reduced later via a negative edge from an unprocessed vertex, breaking the greedy assumption.
+
+- **How to handle graphs with negative weights but no negative cycles?**  
+  Use Bellman‑Ford or SPFA.
+
+- **What is the effect of using a max‑heap instead of min‑heap?**  
+  Would produce wrong distances (extracts farthest first).
+
+- **How to detect if a vertex is unreachable?**  
+  `dist[v] == INT_MAX` remains.
+
+- **Given a graph, write the order of extraction from priority queue.**
+
+- **How to modify Dijkstra to find the second shortest path?**  
+  Use K‑shortest paths algorithms (e.g., Yen’s) or maintain two distances per vertex.
+
+- **How does Dijkstra behave on a tree?**  
+  Still $O(V \log V)$ but simpler BFS would suffice.
+
+### 10. Edge Cases in Implementation
+
+- **Graph with a single vertex** – distance = 0.
+- **Source unreachable** – distances remain infinity.
+- **Multiple edges between same vertices** – adjacency list stores all; relaxation picks min.
+- **Very large graph** – priority queue memory $O(V)$.
+- **Zero‑weight edges** – allowed, works fine.
+- **All edges equal weight** – Dijkstra behaves like BFS but with log factor overhead.
+
+### 11. Optimization: Early Stop for Target
+
+```cpp
+int dijkstraTarget(const vector<vector<pair<int, int>>>& graph, int src, int target) {
+    int n = graph.size();
+    vector<int> dist(n, INT_MAX);
+    dist[src] = 0;
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+    pq.push({0, src});
+    
+    while (!pq.empty()) {
+        int u = pq.top().second;
+        int u_dist = pq.top().first;
+        pq.pop();
+        if (u_dist > dist[u]) continue;
+        if (u == target) return dist[u];  // early stop
+        for (auto& edge : graph[u]) {
+            int v = edge.first, w = edge.second;
+            if (dist[u] + w < dist[v]) {
+                dist[v] = dist[u] + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+    return INT_MAX;
+}
+```
+
+### 12. Dijkstra for Undirected Graphs
+
+The same code works because each undirected edge is stored as two directed edges. Relaxation handles both directions automatically.
 
 ## Summary for Revision
-- Greedy SSSP for non-negative weighted graphs
-- Standard complexity: \(O((V+E)\log V)\)
-- Matrix variant: \(O(V^2)\)
-- Key caution: never use with negative edges
+
+- **Purpose**: Single‑source shortest path with **non‑negative** weights.
+- **Algorithm**: Greedy, uses priority queue (min‑heap) to process vertices in order of increasing distance.
+- **Relaxation**: $dist[v] = \min(dist[v], dist[u] + w(u,v))$.
+- **Time**: $O((V+E) \log V)$ with binary heap; $O(V^2)$ with array for dense graphs.
+- **Space**: $O(V+E)$ adjacency list + $O(V)$ for distances and heap.
+- **Limitation**: Negative weights cause incorrect results.
+- **Use cases**: GPS navigation, network routing, game pathfinding, any graph with non‑negative edge costs.
+- **Optimisation**: Early termination when target is extracted.
