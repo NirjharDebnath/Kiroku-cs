@@ -82,6 +82,50 @@ vector<int> jobSequencingSimple(const vector<Job>& jobs, int maxTime) {
 }
 ```
 
+#### No DSU Version
+
+```cpp
+#include <vector>
+#include <algorithm>
+
+struct Job {
+    int id;       // job identifier
+    int deadline; // deadline (1‑based)
+    int profit;   // profit
+};
+
+bool compareProfit(const Job& a, const Job& b) {
+    return a.profit > b.profit;
+}
+
+vector<int> jobSequencingSimple(const vector<Job>& jobs, int maxTime) {
+    // Sort jobs in descending order of profit
+    vector<Job> sorted = jobs;
+    sort(sorted.begin(), sorted.end(), compareProfit);
+    
+    // slot[t] = job id assigned to time unit t (1..maxTime), -1 means empty
+    vector<int> slot(maxTime + 1, -1);
+    
+    for (const Job& j : sorted) {
+        // Try to place this job at the latest possible slot <= its deadline
+        for (int t = min(j.deadline, maxTime); t >= 1; --t) {
+            if (slot[t] == -1) {
+                slot[t] = j.id;
+                break;
+            }
+        }
+    }
+    
+    // Collect scheduled jobs in order of time slots (1 .. maxTime)
+    vector<int> result;
+    for (int t = 1; t <= maxTime; ++t)
+        if (slot[t] != -1)
+            result.push_back(slot[t]);
+    
+    return result;
+}
+```
+
 ### Dry Run Example
 
 **Jobs**: (id, deadline, profit)  
@@ -238,7 +282,7 @@ Schedule: slot1=C, slot2=B, slot3=A. Profit=30+40+50=120.
   Yes, maxTime is the maximum deadline. But if deadlines are huge, DSU array size becomes large. However, we can cap at `n` because scheduling more than `n` jobs is impossible. So `maxTime = min(maxDeadline, n)`.
 
 - **Is the greedy algorithm optimal for minimising weighted number of tardy jobs?**  
-  No – that is a different problem (1||∑w_jU_j) which is NP‑hard. The greedy here maximises profit for unit‑time jobs, which is a special polynomially solvable case.
+  No – that is a different problem $(1||∑w_jU_j)$ which is NP‑hard. The greedy here maximises profit for unit‑time jobs, which is a special polynomially solvable case.
 
 ### Edge Cases in Implementation
 
