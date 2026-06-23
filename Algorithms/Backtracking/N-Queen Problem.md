@@ -162,6 +162,54 @@ Q . . .
   - Anti-diagonals share the same sum: `r + c`.
   - Main diagonals share the same difference: `r - c`. To avoid negative indices in arrays, we use `(N - 1) + (c - r)`.
 
+### Easy-to-Remember Exam Algorithm
+
+If you need to quickly write N-Queens in an exam, use the standard recursive approach without complex hashing arrays. Memorize these simple steps:
+
+1. **State**: The board is a 2D array of strings/chars. We process column by column.
+2. **Base Case**: If `col == N`, we have successfully placed all queens. Save the board and `return`.
+3. **Loop**: For the current `col`, try placing a queen in every `row` from `0` to `N-1`.
+4. **Safety Check (`isSafe`)**: You only need to check three directions (the "past"):
+   - Straight left (same row, previous columns).
+   - Upper-left diagonal.
+   - Lower-left diagonal.
+   *(No need to check right, up, or down because we place exactly one queen per column from left to right).*
+5. **Backtrack Step**: 
+   - Place queen: `board[row][col] = 'Q'`
+   - Recurse to next column: `solve(col + 1)`
+   - Remove queen to explore other paths: `board[row][col] = '.'`
+
+**Minimal Code Snippet to Memorize**:
+```cpp
+bool isSafe(int row, int col, vector<string>& board, int n) {
+    int r = row, c = col;
+    // Check left
+    while(c >= 0) if(board[row][c--] == 'Q') return false;
+    
+    r = row, c = col; // Reset
+    // Check upper-left
+    while(r >= 0 && c >= 0) if(board[r--][c--] == 'Q') return false;
+    
+    r = row, c = col; // Reset
+    // Check lower-left
+    while(r < n && c >= 0) if(board[r++][c--] == 'Q') return false;
+    
+    return true;
+}
+
+void solve(int col, vector<string>& board, vector<vector<string>>& ans, int n) {
+    if (col == n) { ans.push_back(board); return; }
+    
+    for (int row = 0; row < n; row++) {
+        if (isSafe(row, col, board, n)) {
+            board[row][col] = 'Q';          // Choose
+            solve(col + 1, board, ans, n);  // Explore
+            board[row][col] = '.';          // Unchoose (Backtrack)
+        }
+    }
+}
+```
+
 ### Time & Space Complexity
 
 | Approach | Time Complexity | Space Complexity |
