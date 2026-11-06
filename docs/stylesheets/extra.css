@@ -1,0 +1,45 @@
+/* Extra styling for GATE CS Notes */
+:root {
+  --md-primary-fg-color: #2563eb;
+  --md-primary-fg-color--light: #3b82f6;
+  --md-primary-fg-color--dark: #1d4ed8;
+  --md-accent-fg-color: #06b6d4;
+}
+
+/* Enhancements for MathJax/KaTeX display equations */
+.arithmatex {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Exam trap callout styling */
+.admonition.warning,
+.admonition.danger {
+  border-left-width: 4px;
+}
+
+/* Formula summary highlight box */
+.formula-box {
+  background-color: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* Memory layout visualization tables */
+.memory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.memory-table th, .memory-table td {
+  border: 1px solid var(--md-default-fg-color--lighter);
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+}
+
+.memory-table th {
+  background-color: var(--md-default-fg-color--lightest);
+}
