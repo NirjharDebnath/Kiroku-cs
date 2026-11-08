@@ -117,7 +117,12 @@ Quick Sort is an in-place, divide-and-conquer algorithm that selects a **pivot**
 
 2. **Worst Case**: The pivot is always the smallest or largest element, generating subproblems of size $0$ and $n - 1$:
    
-   $$ T(n) = T(n - 1) + T(0) + \Theta(n) = T(n - 1) + c \cdot n = \sum_{i=1}^n c \cdot i = \mathbf{\Theta(n^2)} $$
+   $$
+\begin{aligned}
+T(n) &= T(n - 1) + T(0) + \Theta(n) \\
+&= T(n - 1) + c \cdot n = \sum_{i=1}^n c \cdot i = \mathbf{\Theta(n^2)}
+\end{aligned}
+$$
    
    **Worst-Case Inputs (for deterministic first/last element pivot)**:
    - Already sorted array in ascending order.
@@ -164,8 +169,13 @@ Any comparison-based sorting algorithm can be modeled as a binary **Decision Tre
   $$ 2^h \ge L \ge n! \implies h \ge \log_2(n!) $$
 
 - Applying **Stirling's Approximation** ($\ln(n!) = n \ln n - n + \mathcal{O}(\log n)$):
-  
-  $$ h \ge \sum_{i=1}^n \log_2 i \ge \sum_{i=n/2}^n \log_2(n/2) = \frac{n}{2} \log_2\left(\frac{n}{2}\right) = \Omega(n \log n) $$
+
+$$
+\begin{aligned}
+h &\ge \sum_{i=1}^n \log_2 i \ge \sum_{i=n/2}^n \log_2(n/2) \\
+&= \frac{n}{2} \log_2\left(\frac{n}{2}\right) = \Omega(n \log n)
+\end{aligned}
+$$
 
 $$ \boxed{\text{Worst-Case Lower Bound for Comparison Sorting} = \Omega(n \log n)} $$
 
@@ -266,7 +276,12 @@ $$ \frac{1}{5} + \frac{7}{10} = \frac{2}{10} + \frac{7}{10} = \frac{9}{10} < 1 $
 
 Since the sum of fractions is strictly less than $1$, the recurrence sums to a convergent geometric series:
 
-$$ T(n) \le c n \sum_{i=0}^\infty \left(\frac{9}{10}\right)^i = c n \left( \frac{1}{1 - 0.9} \right) = 10 c n = \mathbf{\mathcal{O}(n)} $$
+$$
+\begin{aligned}
+T(n) &\le c n \sum_{i=0}^\infty \left(\frac{9}{10}\right)^i \\
+&= c n \left( \frac{1}{1 - 0.9} \right) = 10 c n = \mathbf{\mathcal{O}(n)}
+\end{aligned}
+$$
 
 !!! tip "💡 Pen & Paper Insight: Why Groups of 3 Fail"
     If we divided elements into groups of **3**:
