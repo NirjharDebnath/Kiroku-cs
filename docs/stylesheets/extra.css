@@ -1,4 +1,4 @@
-/* Extra styling for GATE CS Notes */
+/* Extra styling for Kiroku CS Compendium */
 :root {
   --md-primary-fg-color: #2563eb;
   --md-primary-fg-color--light: #3b82f6;
@@ -10,12 +10,181 @@
 .arithmatex {
   overflow-x: auto;
   overflow-y: hidden;
+  padding: 0.25rem 0;
 }
 
-/* Exam trap callout styling */
-.admonition.warning,
-.admonition.danger {
+/* ==========================================================================
+   VIBRANT & EYE-CATCHING ADMONITION / CALLOUT STYLING (LIGHT THEME)
+   ========================================================================== */
+
+/* 1. Pro Tips & Shortcuts (Emerald / Mint) */
+.md-typeset .admonition.tip,
+.md-typeset details.tip {
   border-left-width: 4px;
+  border-left-color: #10b981;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(5, 150, 105, 0.04) 100%);
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.08);
+}
+.md-typeset .admonition.tip > .admonition-title,
+.md-typeset details.tip > summary {
+  color: #065f46;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.18);
+}
+
+/* 2. Warnings & Common Traps (Amber / Gold) */
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+  border-left-width: 4px;
+  border-left-color: #f59e0b;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.05) 100%);
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(245, 158, 11, 0.10);
+}
+.md-typeset .admonition.warning > .admonition-title,
+.md-typeset details.warning > summary {
+  color: #92400e;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.20);
+}
+
+/* 3. Dangers & Critical Cautions (Crimson / Rose) */
+.md-typeset .admonition.danger,
+.md-typeset .admonition.caution,
+.md-typeset details.danger,
+.md-typeset details.caution {
+  border-left-width: 4px;
+  border-left-color: #ef4444;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.14) 0%, rgba(220, 38, 38, 0.05) 100%);
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(239, 68, 68, 0.10);
+}
+.md-typeset .admonition.danger > .admonition-title,
+.md-typeset .admonition.caution > .admonition-title,
+.md-typeset details.danger > summary,
+.md-typeset details.caution > summary {
+  color: #991b1b;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.20);
+}
+
+/* 4. Notes & Core Definitions (Sky Blue / Azure) */
+.md-typeset .admonition.note,
+.md-typeset .admonition.info,
+.md-typeset details.note,
+.md-typeset details.info {
+  border-left-width: 4px;
+  border-left-color: #0284c7;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(2, 132, 199, 0.04) 100%);
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(14, 165, 233, 0.08);
+}
+.md-typeset .admonition.note > .admonition-title,
+.md-typeset .admonition.info > .admonition-title,
+.md-typeset details.note > summary,
+.md-typeset details.info > summary {
+  color: #075985;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.18);
+}
+
+/* 5. Worked Examples & Hand Traces (Royal Purple / Violet) */
+.md-typeset .admonition.example,
+.md-typeset details.example {
+  border-left-width: 4px;
+  border-left-color: #8b5cf6;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.11) 0%, rgba(109, 40, 217, 0.04) 100%);
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(139, 92, 246, 0.08);
+}
+.md-typeset .admonition.example > .admonition-title,
+.md-typeset details.example > summary {
+  color: #5b21b6;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.18);
+}
+
+/* ==========================================================================
+   DARK MODE OVERRIDES (SLATE PALETTE)
+   ========================================================================== */
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.tip,
+[data-md-color-scheme="slate"] .md-typeset details.tip {
+  border-left-color: #34d399;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.20) 0%, rgba(5, 150, 105, 0.08) 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.tip > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset details.tip > summary {
+  color: #6ee7b7;
+  border-bottom-color: rgba(52, 211, 153, 0.25);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.warning,
+[data-md-color-scheme="slate"] .md-typeset details.warning {
+  border-left-color: #fbbf24;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(217, 119, 6, 0.08) 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.warning > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset details.warning > summary {
+  color: #fde68a;
+  border-bottom-color: rgba(251, 191, 36, 0.25);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.danger,
+[data-md-color-scheme="slate"] .md-typeset .admonition.caution,
+[data-md-color-scheme="slate"] .md-typeset details.danger,
+[data-md-color-scheme="slate"] .md-typeset details.caution {
+  border-left-color: #f87171;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.22) 0%, rgba(220, 38, 38, 0.08) 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.danger > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset .admonition.caution > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset details.danger > summary,
+[data-md-color-scheme="slate"] .md-typeset details.caution > summary {
+  color: #fca5a5;
+  border-bottom-color: rgba(248, 113, 113, 0.25);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.note,
+[data-md-color-scheme="slate"] .md-typeset .admonition.info,
+[data-md-color-scheme="slate"] .md-typeset details.note,
+[data-md-color-scheme="slate"] .md-typeset details.info {
+  border-left-color: #38bdf8;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.20) 0%, rgba(2, 132, 199, 0.08) 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.note > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset .admonition.info > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset details.note > summary,
+[data-md-color-scheme="slate"] .md-typeset details.info > summary {
+  color: #7dd3fc;
+  border-bottom-color: rgba(56, 189, 248, 0.25);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.example,
+[data-md-color-scheme="slate"] .md-typeset details.example {
+  border-left-color: #a78bfa;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.20) 0%, rgba(109, 40, 217, 0.08) 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+[data-md-color-scheme="slate"] .md-typeset .admonition.example > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset details.example > summary {
+  color: #c4b5fd;
+  border-bottom-color: rgba(167, 139, 250, 0.25);
+}
+
+/* ==========================================================================
+   BLOCKQUOTE ALERT FALLBACK (FOR GITHUB-STYLE > [!ALERT])
+   ========================================================================== */
+.md-typeset blockquote {
+  border-left: 4px solid var(--md-default-fg-color--lighter);
+  background-color: var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
 }
 
 /* Formula summary highlight box */
@@ -27,19 +196,20 @@
   margin: 1rem 0;
 }
 
-/* Memory layout visualization tables */
-.memory-table {
+/* Step-by-step trace tables */
+.trace-table, .memory-table {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
 }
 
+.trace-table th, .trace-table td,
 .memory-table th, .memory-table td {
   border: 1px solid var(--md-default-fg-color--lighter);
   padding: 0.5rem 0.75rem;
   text-align: center;
 }
 
-.memory-table th {
+.trace-table th, .memory-table th {
   background-color: var(--md-default-fg-color--lightest);
 }

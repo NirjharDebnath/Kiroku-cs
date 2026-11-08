@@ -16,6 +16,7 @@ A comprehensive, modular, and mathematically rigorous open-access repository cov
 
 [🚀 Explore Programming](programming/01-data-types-operators.md){ .md-button .md-button--primary }
 [🌲 Explore Data Structures](data-structures/01-linear-matrices-linked-lists.md){ .md-button }
+[⚡ Explore Algorithms](algorithms/01-asymptotic-analysis-recurrences.md){ .md-button }
 [🗺️ Curriculum Roadmap](#curriculum-roadmap){ .md-button }
 
 </div>
@@ -72,6 +73,16 @@ A comprehensive, modular, and mathematically rigorous open-access repository cov
 
     [Explore Data Structures Notes →](data-structures/01-linear-matrices-linked-lists.md)
 
+-   ### ⚡ Algorithms & Computational Complexity
+
+    ---
+
+    Asymptotic bounds ($O, \Omega, \Theta$), recurrence relations (Master Theorem, recursion trees), divide-and-conquer, optimal comparison and linear sorting, inversion counting, order statistics, greedy strategies (Huffman coding, MST), dynamic programming (0/1 Knapsack, LCS, MCM), graph shortest paths (Dijkstra, Bellman-Ford, Floyd-Warshall), and NP-Completeness.
+
+    **7 Modules • Ready**
+
+    [Explore Algorithms Notes →](algorithms/01-asymptotic-analysis-recurrences.md)
+
 -   ### 🔍 Worked Problem Solutions & Case Studies
 
     ---
@@ -94,8 +105,8 @@ Below is the structured roadmap of subjects included and planned for the compend
 | :--- | :--- | :---: | :---: |
 | **Programming Fundamentals** | Data Types, Operators, Control Flow, Functions, Recursion, Pointers, Arrays, Structs, Memory Layout | ✅ Ready | 5 Modules |
 | **Data Structures** | Special Matrices, Linked Lists, Stacks, Queues, Binary Trees, BSTs, AVL Trees, Heaps, Graphs, Hashing | ✅ Ready | 8 Modules |
+| **Algorithms & Complexity** | Asymptotic Analysis ($\mathcal{O}, \Omega, \Theta$), Recurrences, Divide & Conquer, Sorting, Greedy, Dynamic Programming, Shortest Paths, NP-Completeness | ✅ Ready | 7 Modules |
 | **Worked Case Studies** | Step-by-step analytical traces, edge cases, recursion trees, pointer traps | ✅ Ready | 1 Module |
-| **Algorithms & Complexity** | Asymptotic Analysis ($\mathcal{O}, \Omega, \Theta$), Divide & Conquer, Greedy, Dynamic Programming, Graph Algorithms, NP-Completeness | ⏳ In Progress | Coming Soon |
 | **Computer Organization & Architecture** | Machine Instructions, Addressing Modes, ALU, Data Path & Control Units, Pipelining, Cache Memory, Virtual Memory, I/O Organization | 📋 Planned | Future Track |
 | **Operating Systems** | Processes, Threads, CPU Scheduling, IPC, Synchronization & Semaphores, Deadlocks, Memory Management, Paging, File Systems | 📋 Planned | Future Track |
 | **Theory of Computation** | Regular Expressions, DFA / NFA, Context-Free Grammars, Pushdown Automata, Turing Machines, Decidability | 📋 Planned | Future Track |
