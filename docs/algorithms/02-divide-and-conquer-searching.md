@@ -64,7 +64,14 @@ int binarySearch(const int arr[], int n, int target) {
     
     **The mathematically sound pen-and-paper formula**:
     
-    $$ \boxed{\text{mid} = \text{low} + \left\lfloor \frac{\text{high} - \text{low}}{2} \right\rfloor = \text{low} + ((\text{high} - \text{low}) \gg 1)} $$
+    $$
+    \boxed{
+    \begin{aligned}
+    \text{mid} &= \text{low} + \left\lfloor \frac{\text{high} - \text{low}}{2} \right\rfloor \\
+    &= \text{low} + ((\text{high} - \text{low}) \gg 1)
+    \end{aligned}
+    }
+    $$
 
 ---
 
@@ -197,8 +204,13 @@ Solving by unrolling:
 - $C(n) = 2 [2 C(n/4) + 2] + 2 = 4 C(n/4) + 4 + 2$
 - At step $k$: $C(n) = 2^{k-1} C(n/2^{k-1}) + \sum_{i=1}^{k-1} 2^i$
 - When $n/2^{k-1} = 2 \implies 2^{k-1} = n/2$:
-  
-  $$ C(n) = \frac{n}{2} \cdot C(2) + \sum_{i=1}^{\log_2 n - 1} 2^i = \frac{n}{2}(1) + (2^{\log_2 n} - 2) = \frac{n}{2} + n - 2 = \mathbf{\frac{3n}{2} - 2} $$
+
+$$
+\begin{aligned}
+C(n) &= \frac{n}{2} \cdot C(2) + \sum_{i=1}^{\log_2 n - 1} 2^i \\
+&= \frac{n}{2}(1) + (2^{\log_2 n} - 2) = \frac{n}{2} + n - 2 = \mathbf{\frac{3n}{2} - 2}
+\end{aligned}
+$$
 
 ---
 
