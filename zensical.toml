@@ -27,6 +27,15 @@ nav = [
     { "07. Graph Traversals (BFS & DFS)" = "data-structures/07-graphs-traversals.md" },
     { "08. Hashing & Collision Resolution" = "data-structures/08-hashing.md" },
   ]},
+  { "Algorithms & Complexity" = [
+    { "01. Asymptotic Analysis & Recurrences" = "algorithms/01-asymptotic-analysis-recurrences.md" },
+    { "02. Divide & Conquer and Searching" = "algorithms/02-divide-and-conquer-searching.md" },
+    { "03. Sorting Algorithms & Selection" = "algorithms/03-sorting-algorithms-selection.md" },
+    { "04. Greedy Algorithms & MST" = "algorithms/04-greedy-algorithms.md" },
+    { "05. Dynamic Programming" = "algorithms/05-dynamic-programming.md" },
+    { "06. Graph Algorithms & Shortest Paths" = "algorithms/06-graph-algorithms-shortest-paths.md" },
+    { "07. NP-Completeness & Advanced Topics" = "algorithms/07-np-completeness-advanced-topics.md" },
+  ]},
   { "GATE PYQs & Solutions" = [
     { "Recent GATE Papers (2024 - 2026)" = "gate-pyq/recent-gate-solutions.md" },
   ]},
