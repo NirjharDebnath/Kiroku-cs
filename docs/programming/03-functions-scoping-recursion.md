@@ -172,6 +172,7 @@ $$ \text{Total Space Complexity} = (\text{Maximum Recursion Depth}) \times (\tex
     The variable `count` is `static`, meaning a single shared memory location in the Data Segment is updated across **all** calls.
 
     Let us trace the calls in their exact execution order (left-to-right evaluation):
+
     1. Call $f(3)$:
        - `count` becomes $0 + 1 = 1$.
        - Needs: $f(2) + f(1) + \text{count}$.
@@ -218,6 +219,7 @@ $$ \text{Total Space Complexity} = (\text{Maximum Recursion Depth}) \times (\tex
     }
     ```
     **Solution**:
+    
     - `swap` receives addresses of `a` and `b`.
     - Through dereferencing `*x` and `*y`, values in `main`'s stack frame are swapped.
     - **Output**: `20 10`.

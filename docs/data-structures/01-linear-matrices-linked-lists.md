@@ -206,6 +206,7 @@ If we place one pointer at `head` and keep another at the meeting point $D$, and
     p = q;
     ```
     **Solution**:
+    
     1. Initially: `p` points to `10`, `p->next` points to `20`.
     2. `q = p->next`: `q` points to `20`.
     3. `p->next = q->next`: `10->next` now points to `30`. (List: `10 -> 30 -> 40`).

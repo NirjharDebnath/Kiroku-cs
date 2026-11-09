@@ -226,6 +226,7 @@ sequenceDiagram
     }
     ```
     **Solution**:
+    
     - Notice the semicolon `;` immediately after `for (i = 0; i < 5; i++);`.
     - This semicolon constitutes a **null statement** as the loop body. The loop runs 5 times doing nothing.
     - Loop exits when condition `i < 5` fails, which occurs at `i = 5`.

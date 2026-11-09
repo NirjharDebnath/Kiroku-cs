@@ -134,6 +134,7 @@ union Data {
     };
     ```
     **Solution**:
+    
     - `short s` requires 2 bytes (offsets 0–1).
     - `char c` requires 1 byte (offset 2).
     - Next member `int *p` is a pointer, requiring 4-byte alignment on a 32-bit machine.

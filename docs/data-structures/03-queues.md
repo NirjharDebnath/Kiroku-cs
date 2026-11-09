@@ -142,6 +142,7 @@ In a Priority Queue, elements are dequeued based on an associated **priority key
     What is the element popped in the final step?
 
     **Step-by-step Execution Trace**:
+    
     1. **Pushing 1 to 5 to Stack $S$**:
        - Stack $S$ (bottom to top): $[1, 2, 3, 4, 5]$ ($5$ is at the top).
     2. **Pop 3 elements from $S$ and Enqueue into $Q$**:

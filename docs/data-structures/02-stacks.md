@@ -138,6 +138,7 @@ flowchart TD
     We wish to dequeue elements in FIFO order by transferring elements from $S_1$ to $S_2$. What is the maximum number of additional elements that can be enqueued and subsequently dequeued without causing stack overflow?
 
     **Step-by-step Solution**:
+    
     1. Initial state:
        - $S_1$: $[a, b, c, d]$ (Full: $4/4$, $d$ at top).
        - $S_2$: $[\;]$ (Empty: $0/2$).

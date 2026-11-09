@@ -17,6 +17,7 @@ $$ \text{Addr}(A[i]) = B + (i - \text{LB}) \cdot S $$
 
 ### 1.2 Two-Dimensional (2D) Array Address Formulas
 Consider a 2D array $A[\text{LB}_1 \dots \text{UB}_1][\text{LB}_2 \dots \text{UB}_2]$ with dimensions $N_1 \times N_2$:
+
 - Number of rows: $N_1 = \text{UB}_1 - \text{LB}_1 + 1$
 - Number of columns: $N_2 = \text{UB}_2 - \text{LB}_2 + 1$
 
@@ -112,6 +113,7 @@ Because postfix operators bind tighter than unary prefix operators, analyzing ex
 ## 5. Advanced Pointer Constructs
 
 ### 5.1 Array of Pointers vs. Pointer to an Array
+
 - `int *P[10];`
   - `[]` has higher precedence than `*`.
   - $P$ is an **Array of 10 pointers to integers** (Total size = $10 \times \text{sizeof}(\text{pointer})$).
@@ -158,6 +160,7 @@ int sum = (*fp)(10, 20);    // or simply fp(10, 20);
     What is the output?
 
     **Step-by-step Solution**:
+
     1. `str` is an array of 4 string pointers:
        - `str[0] = "GATE"`, `str[1] = "CS"`, `str[2] = "2026"`, `str[3] = "TOPPER"`.
     2. `ptr` is an array of pointers to `str` elements:
@@ -189,6 +192,7 @@ int sum = (*fp)(10, 20);    // or simply fp(10, 20);
     }
     ```
     **Solution**:
+
     - `foo` receives `&a` (address of `a`) and a copy of `a` ($15$).
     - `*p` dereferences to `a`.
     - `*p = *p + x \implies a = 15 + 15 = 30`.

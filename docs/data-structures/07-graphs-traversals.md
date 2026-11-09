@@ -20,7 +20,6 @@ flowchart TD
 
 ### 1.1 The Handshaking Lemma (Undirected Graphs)
 In any undirected graph $G = (V, E)$, the sum of degrees of all vertices equals twice the number of edges:
-
 $$ \boxed{\sum_{v \in V} \text{deg}(v) = 2|E|} $$
 
 > [!IMPORTANT]
@@ -107,16 +106,17 @@ A **Topological Sort** of a Directed Acyclic Graph (DAG) is a linear permutation
 
 ### 5.1 Kahn's Algorithm (Indegree / BFS-Based)
 ```c title="kahns_algorithm.c" linenums="1"
-// 1. Compute in-degree of all V vertices: O(V + E)
-// 2. Enqueue all vertices with in-degree == 0
-// 3. While queue is not empty:
-//    - u = dequeue()
-//    - Append u to topological sort output
-//    - For each neighbor v of u:
-//        decrement in-degree[v]
-//        if in-degree[v] == 0: enqueue(v)
-// 4. If count of output nodes != V -> Graph contains a CYCLE!
+1. Compute in-degree of all V vertices: O(V + E)
+2. Enqueue all vertices with in-degree == 0
+3. While queue is not empty:
+   - u = dequeue()
+   - Append u to topological sort output
+   - For each neighbor v of u:
+       decrement in-degree[v]
+       if in-degree[v] == 0: enqueue(v)
+4. If count of output nodes != V -> Graph contains a CYCLE!
 ```
+
 - **Time Complexity**: $\mathcal{O}(V + E)$
 - **Space Complexity**: $\mathcal{O}(V)$
 
@@ -132,6 +132,7 @@ A **Topological Sort** of a Directed Acyclic Graph (DAG) is a linear permutation
     - (D) $\log_2 n$
     
     **Solution**:
+
     - A connected undirected graph with minimum edges is a **Tree**.
     - Any tree with $n$ vertices contains exactly $n - 1$ edges.
     - Removing any edge disconnects the graph into two components.
@@ -143,14 +144,13 @@ A **Topological Sort** of a Directed Acyclic Graph (DAG) is a linear permutation
     **Question**: An undirected graph has 10 vertices and 3 connected components. What is the maximum possible number of edges in this graph?
     
     **Solution**:
+
     - Let component sizes be $n_1, n_2, n_3$ where $n_1 + n_2 + n_3 = 10$ and $n_i \ge 1$.
     - Number of edges in component $i$ is maximized when it is a complete graph: $\binom{n_i}{2} = \frac{n_i(n_i - 1)}{2}$.
     - To maximize the sum of squares, make one component as large as possible:
-
     $$ n_1 = 8, \quad n_2 = 1, \quad n_3 = 1 $$
 
     - Maximum edges:
-
     $$ \binom{8}{2} + \binom{1}{2} + \binom{1}{2} = \frac{8 \times 7}{2} + 0 + 0 = 28 $$
 
     - **Answer**: `28 edges`.

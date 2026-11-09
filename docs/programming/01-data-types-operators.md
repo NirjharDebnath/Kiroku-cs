@@ -235,6 +235,7 @@ printf("%d %d\n", i++, i++); // UNDEFINED: Order of argument evaluation is unspe
     }
     ```
     **Step-by-step Solution**:
+    
     1. Function arguments evaluate **right to left**:
        - The second parameter `++i` evaluates first: `i` changes from $5 \to 6$. The value passed for $b$ is $6$.
        - The first parameter `++i` evaluates next: `i` changes from $6 \to 7$. The value passed for $a$ is $7$.
@@ -262,6 +263,7 @@ printf("%d %d\n", i++, i++); // UNDEFINED: Order of argument evaluation is unspe
     }
     ```
     **Solution**:
+
     - For `x = (10, 20, 30)`: The parentheses group the comma expression. Comma evaluates left to right and returns the rightmost value ($30$). Hence, `x = 30`.
     - For `y = 10, 20, 30`: Assignment `=` has higher precedence (Level 14) than the comma operator `,` (Level 15). Therefore, the expression is parsed as `(y = 10), 20, 30`. Hence, `y = 10`.
     - Output: `x = 30, y = 10`.

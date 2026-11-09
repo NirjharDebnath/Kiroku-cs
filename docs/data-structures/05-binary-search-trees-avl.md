@@ -75,7 +75,6 @@ An **AVL Tree** is a self-balancing binary search tree where the heights of the 
 
 ### 3.1 Balance Factor (BF)
 For every node $X$ in an AVL tree:
-
 $$ \boxed{\text{BF}(X) = \text{Height}(\text{LeftSubtree}) - \text{Height}(\text{RightSubtree}) \in \{-1, \; 0, \; +1\}} $$
 
 If insertion of a node causes $\text{BF}(X) \notin \{-1, 0, +1\}$, the tree is rebalanced using **tree rotations**.
@@ -108,7 +107,6 @@ flowchart TD
 
 #### Recurrence Relation:
 To minimize nodes, the root's two subtrees must differ in height by the maximum allowed balance factor ($1$):
-
 $$ \boxed{N(h) = N(h - 1) + N(h - 2) + 1} $$
 
 - **Base Cases**:
@@ -130,13 +128,11 @@ N(6) &= N(5) + N(4) + 1 = 20 + 12 + 1 = 33
 $$
 
 #### Fibonacci Relation:
-
 $$ \boxed{N(h) = F_{h + 3} - 1} $$
 
 where $F_1 = 1, F_2 = 1, F_3 = 2, F_4 = 3, F_5 = 5, F_6 = 8, F_7 = 13, \dots$
 
 #### Maximum Height for $n$ Nodes:
-
 $$ h_{\max} \approx 1.44 \log_2(n + 2) - 0.328 \in \mathcal{O}(\log n) $$
 
 ---
@@ -145,10 +141,12 @@ $$ h_{\max} \approx 1.44 \log_2(n + 2) - 0.328 \in \mathcal{O}(\log n) $$
 
 ???+ example "GATE 2026 CS2 Q.49: BST Key Comparison Properties"
     **Question**: Consider a binary search tree (BST) with $n$ leaf nodes ($n > 0$). Given any node $V$, the key present in the node is denoted by $\text{key}(V)$. Let $U$ be an internal node and $W$ be a leaf node in the BST such that $W$ is a descendant of $U$. Which of the following statements is/are TRUE?
+    
     - (I) If $W$ is in the left subtree of $U$, then $\text{key}(W) < \text{key}(U)$.
     - (II) The minimum element in a BST is always a leaf node.
     
     **Solution**:
+
     - Statement (I): By the defining property of a BST, every key in the left subtree of $U$ is strictly less than $\text{key}(U)$. Since $W$ is a descendant in the left subtree, $\text{key}(W) < \text{key}(U)$ is always **TRUE**.
     - Statement (II): Consider a BST where the root has no left child, but has a right child (e.g., root is $10$, right child is $20$). Here, $10$ is the minimum element, but it is an internal node (degree 1), NOT a leaf node! Hence, Statement (II) is **FALSE**.
     - **Conclusion**: (I) is TRUE, (II) is FALSE.
@@ -159,6 +157,7 @@ $$ h_{\max} \approx 1.44 \log_2(n + 2) - 0.328 \in \mathcal{O}(\log n) $$
     **Question**: Let $P = \{1, 2, 3, 4\}$. How many distinct binary search trees can be formed using the elements of $P$?
     
     **Solution**:
+
     - The number of distinct BSTs with $n$ distinct keys is given by the $n$-th Catalan number $C_n$:
 
     $$ C_4 = \frac{1}{4 + 1} \binom{2 \times 4}{4} = \frac{1}{5} \binom{8}{4} = \frac{1}{5} \times \frac{8 \times 7 \times 6 \times 5}{4 \times 3 \times 2 \times 1} = \frac{70}{5} = 14 $$

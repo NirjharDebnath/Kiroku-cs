@@ -53,6 +53,7 @@ flowchart TD
 
 #### Rigorous Mathematical Proof:
 Let:
+
 - $n$: total number of nodes.
 - $e$: total number of edges.
 - $n_0$: number of degree-0 nodes (leaves).
@@ -60,40 +61,32 @@ Let:
 - $n_2$: number of degree-2 nodes.
 
 **Step 1: Total node summation**
-
 $$ n = n_0 + n_1 + n_2 \quad \text{--- (Equation 1)} $$
 
 **Step 2: Tree edge property**
 In any connected tree with $n$ nodes, the total number of directed incoming edges is:
-
 $$ e = n - 1 \quad \text{--- (Equation 2)} $$
 
 **Step 3: Edge summation by node outgoing degree**
 Every degree-1 node contributes $1$ branch, every degree-2 node contributes $2$ branches, and leaves contribute $0$:
-
 $$ e = 0 \cdot n_0 + 1 \cdot n_1 + 2 \cdot n_2 = n_1 + 2n_2 \quad \text{--- (Equation 3)} $$
 
 **Step 4: Equating Equations (2) and (3)**
-
 $$ n - 1 = n_1 + 2n_2 $$
 
 Substitute $n$ from Equation (1):
-
 $$ (n_0 + n_1 + n_2) - 1 = n_1 + 2n_2 $$
 
 Canceling $n_1$ from both sides:
-
 $$ n_0 + n_2 - 1 = 2n_2 \implies n_0 - 1 = n_2 \implies \mathbf{n_0 = n_2 + 1} \quad \blacksquare $$
 
 ---
 
 ### 3.2 Theorem 2: Extension to General $m$-ary Trees
 In an $m$-ary tree where every internal node has up to $m$ children:
-
 $$ \boxed{n_0 = (m - 1)n_m + (m - 2)n_{m-1} + \dots + 1 \cdot n_2 + 1} $$
 
 If every internal node has **strictly $m$ children** ($i$ internal nodes):
-
 $$ \boxed{n_0 = (m - 1)i + 1} $$
 
 ---
@@ -102,9 +95,7 @@ $$ \boxed{n_0 = (m - 1)i + 1} $$
 In a Strict Binary Tree, there are **no degree-1 nodes** ($n_1 = 0$).
 
 Using $n = n_0 + n_2$ and $n_2 = n_0 - 1$:
-
 $$ \boxed{n = 2n_0 - 1 \iff n_0 = \frac{n + 1}{2}} $$
-
 $$ \boxed{\text{Internal Nodes } i = n_2 = \frac{n - 1}{2} = n_0 - 1} $$
 
 > [!TIP]
@@ -130,16 +121,13 @@ How many distinct binary trees can be constructed with $n$ nodes?
 
 ### 1. Structurally Unique Unlabelled Binary Trees
 The number of distinct shapes of binary trees with $n$ unlabelled nodes is given by the **$n$-th Catalan Number**:
-
 $$ \boxed{C_n = \frac{1}{n + 1} \binom{2n}{n} = \frac{(2n)!}{(n + 1)! \, n!}} $$
 
 - Recurrence Relation:
-
 $$ C_0 = 1, \quad C_n = \sum_{i=0}^{n-1} C_i \cdot C_{n - 1 - i} $$
 
 ### 2. Labelled Binary Trees
 If the $n$ nodes are distinct/labelled with names $\{1, 2, \dots, n\}$:
-
 $$ \boxed{\text{Count} = C_n \times n! = \frac{(2n)!}{(n + 1)!}} $$
 
 ---
@@ -155,6 +143,7 @@ $$ \boxed{\text{Count} = C_n \times n! = \frac{(2n)!}{(n + 1)!}} $$
 
 ### Unique Binary Tree Reconstruction Rule:
 To reconstruct a unique binary tree from traversal sequences:
+
 - **Inorder + Preorder** $\implies$ **Unique Tree Guaranteed**.
 - **Inorder + Postorder** $\implies$ **Unique Tree Guaranteed**.
 - **Preorder + Postorder** $\implies$ **NOT UNIQUE** in general (Ambiguous unless the tree is strictly Full).
@@ -185,12 +174,14 @@ To reconstruct a unique binary tree from traversal sequences:
 
 ??? example "GATE 2025 CS2 Q.13: Full Binary Tree Leaf Relations"
     **Question**: Consider a binary tree $T$ in which every node has either zero or two children. Let $n > 0$ be the number of nodes in $T$. Which one of the following statements is TRUE?
+
     - (A) The number of leaf nodes in $T$ is $(n - 1)/2$.
     - (B) The number of leaf nodes in $T$ is $(n + 1)/2$.
     - (C) $n$ must be an even integer.
     - (D) The number of internal nodes is $n/2$.
 
     **Solution**:
+
     - Since every node has 0 or 2 children, $T$ is a **Full / Strict Binary Tree** ($n_1 = 0$).
     - Using $n_0 = n_2 + 1$ and $n = n_0 + n_2$:
 

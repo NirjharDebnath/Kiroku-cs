@@ -9,10 +9,12 @@ A **Binary Heap** is a specialized Complete Binary Tree that provides optimal pr
 A Binary Heap satisfies two concurrent structural properties:
 
 1. **Shape Property (Complete Binary Tree)**:
+
    - All levels are completely filled with nodes, except possibly the bottom-most level.
    - At the bottom level, all nodes are filled strictly from **left to right**.
    - Consequence: Height of a heap with $n$ nodes is always $h = \lfloor \log_2 n \rfloor$.
 2. **Heap Order Property**:
+
    - **Max-Heap**: For every node $i$, $\text{key}(\text{parent}(i)) \ge \text{key}(i)$. The maximum element is at the root.
    - **Min-Heap**: For every node $i$, $\text{key}(\text{parent}(i)) \le \text{key}(i)$. The minimum element is at the root.
 
@@ -92,18 +94,16 @@ A naive analysis suggests $n$ insertions take $n \times \mathcal{O}(\log n) = \m
 
 
 #### Step-by-Step Proof:
+
 - Number of nodes at height $h$ in a CBT of size $n$: $\le \lceil \frac{n}{2^{h+1}} \rceil$.
 - Sinking a node at height $h$ requires at most $h$ comparisons.
 - Total operations $T(n)$:
-
     $$ T(n) = \sum_{h=0}^{\lfloor \log_2 n \rfloor} \frac{n}{2^{h+1}} \cdot h = \frac{n}{2} \sum_{h=0}^{\lfloor \log_2 n \rfloor} \frac{h}{2^h} $$
 
 - The infinite geometric-arithmetic series is a known mathematical constant:
-
     $$ \sum_{h=0}^{\infty} \frac{h}{2^h} = \frac{1/2}{(1 - 1/2)^2} = \frac{1/2}{1/4} = 2 $$
 
 - Therefore:
-
     $$ T(n) \le \frac{n}{2} \times 2 = \mathbf{\mathcal{O}(n)} \quad \blacksquare $$
 
 ---
@@ -112,12 +112,14 @@ A naive analysis suggests $n$ insertions take $n \times \mathcal{O}(\log n) = \m
 
 ???+ example "GATE 2026 CS1 Q.23: Index of Maximum in a Min-Heap"
     **Question**: Let $n$ be an odd number greater than $100$. Consider a binary min-heap with $n$ elements stored in an array $P$ whose indices range from $0$ to $n - 1$. Let $k$ be the index of the maximum element in $P$. Which of the following inequalities correctly specifies the range of $k$?
+
     - (A) $0 \le k \le \lfloor n/2 \rfloor$
     - (B) $\lfloor n/2 \rfloor \le k \le n - 1$
     - (C) $0 \le k \le \lfloor \log_2 n \rfloor$
     - (D) $\lfloor n/4 \rfloor \le k \le \lfloor n/2 \rfloor$
 
     **Solution**:
+
     - In a binary min-heap, the children of any node are always greater than or equal to their parent.
     - Thus, no internal node can hold the maximum element.
     - The maximum element must be located at one of the leaf nodes.
@@ -130,6 +132,7 @@ A naive analysis suggests $n$ insertions take $n \times \mathcal{O}(\log n) = \m
     **Question**: An array $[82, 101, 90, 11, 111, 75, 33, 131, 44, 93]$ is heapified into a max-heap. What is the value at index $0$ after heapification?
     
     **Solution**:
+    
     - In any valid max-heap, the root (index $0$) must contain the global maximum of all elements.
     - The elements are: $\{82, 101, 90, 11, 111, 75, 33, 131, 44, 93\}$.
     - The largest element in the set is $131$.

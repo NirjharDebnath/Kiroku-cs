@@ -89,6 +89,7 @@ Assuming uniform distribution of keys across slots:
     What is the final index of key $22$?
 
     **Step-by-step Insertion Trace**:
+    
     - Insert $10$: $10 \bmod 7 = 3 \implies$ Slot $3$ is empty $\to$ **Stored at Slot 3**.
     - Insert $20$: $20 \bmod 7 = 6 \implies$ Slot $6$ is empty $\to$ **Stored at Slot 6**.
     - Insert $15$: $15 \bmod 7 = 1 \implies$ Slot $1$ is empty $\to$ **Stored at Slot 1**.

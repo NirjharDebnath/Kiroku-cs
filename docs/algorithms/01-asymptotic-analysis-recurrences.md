@@ -87,6 +87,7 @@ for (int i = 1; i < n; i *= 2) {
     count++;
 }
 ```
+
 - **Execution Trace**: At iteration $k$, the value of $i$ is $2^k$.
 - **Termination Condition**: Loop terminates when $2^k \ge n \implies k = \lceil \log_2 n \rceil$.
 - **Time Complexity**: $\Theta(\log n)$.
@@ -156,7 +157,6 @@ for (int i = 1; i <= n; i++) {
 }
 ```
 - **Summation**: For a fixed $i$, the inner loop runs $\lceil n / i \rceil$ times:
-
 $$ T(n) = \sum_{i=1}^n \frac{n}{i} = n \sum_{i=1}^n \frac{1}{i} = n \cdot H_n = n \left( \ln n + \gamma + \mathcal{O}(1/n) \right) = \Theta(n \log n) $$
 
 ---
@@ -174,19 +174,15 @@ In this method, we repeatedly expand (unroll) the recurrence until a discernible
     
     1. **Step 1**: $T(n) = T(n - 1) + n$
     2. **Step 2**: Substitute $T(n - 1) = T(n - 2) + (n - 1)$:
-       
     $$ T(n) = [T(n - 2) + (n - 1)] + n = T(n - 2) + (n - 1) + n $$
        
     3. **Step 3**: Substitute $T(n - 2) = T(n - 3) + (n - 2)$:
-       
     $$ T(n) = T(n - 3) + (n - 2) + (n - 1) + n $$
        
     4. **Step $k$ (Generalization)**:
-       
     $$ T(n) = T(n - k) + \sum_{j=0}^{k-1} (n - j) $$
        
     5. **Apply Base Condition**: We reach base case $T(1)$ when $n - k = 1 \implies k = n - 1$:
-    
     $$ T(n) = T(1) + \sum_{j=0}^{n-2} (n - j) = 1 + [2 + 3 + 4 + \dots + n] = \sum_{i=1}^n i = \frac{n(n + 1)}{2} = \Theta(n^2) $$
 
 ---
@@ -212,7 +208,6 @@ The recursion tree visualizes the cost at each level of the recursive call hiera
 ### 3.3 Pillar 3: Master Theorem (Standard & Extended)
 
 For divide-and-conquer recurrences of the canonical form:
-
 $$ \boxed{T(n) = a \, T\left(\frac{n}{b}\right) + f(n)} $$
 
 where $a \ge 1$ (number of subproblems), $b > 1$ (division factor), and $f(n)$ is asymptotically positive.
@@ -244,7 +239,6 @@ When $f(n) = \Theta(n^{\log_b a} \log^k n)$ for any real $k$:
     1. **$a$ is not constant**: $T(n) = n T(n/2) + n$.
     2. **$b \le 1$**: Subproblem size is not strictly shrinking by division.
     3. **Non-polynomial gap between $f(n)$ and $n^{\log_b a}$**:
-       
     $$ T(n) = 2T(n/2) + n \sin n \quad \text{or} \quad T(n) = 2T(n/2) + n^{\log \log n} $$
        
     4. **Regularity condition violated in Case 3**: Even if $f(n) = \Omega(n^{\log_b a + \epsilon})$, if $a f(n/b) \le c f(n)$ fails for all $c < 1$, Master Theorem does not hold.
@@ -254,7 +248,6 @@ When $f(n) = \Theta(n^{\log_b a} \log^k n)$ for any real $k$:
 ### 3.4 Pillar 4: Decreasing & Conquer Recurrences
 
 When subproblem size decreases by subtraction rather than division:
-
 $$ \boxed{T(n) = T(n - b) + f(n)} $$
 
 | Recurrence Relation | Closed-Form Solution | Intuition / Derivation |
@@ -284,5 +277,6 @@ $$ \boxed{\text{Total Space} = \text{Auxiliary Heap Storage} + (\text{Max Recurs
 
 !!! tip "💡 Pro Tip: Tree Nodes vs. Tree Height for Space"
     In naive recursive Fibonacci:
+
     - **Time Complexity** is determined by the **total number of nodes** in the recursion tree: $\mathcal{O}(2^n)$.
     - **Space Complexity** is determined strictly by the **longest path from root to leaf** (call stack depth): $\mathcal{O}(n)$, because stack frames are popped as subtrees finish execution!
