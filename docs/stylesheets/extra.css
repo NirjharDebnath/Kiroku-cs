@@ -7,27 +7,10 @@
 }
 
 /* Enhancements for MathJax/KaTeX display equations */
-.arithmatex,
-.katex-display {
-  display: block;
+.arithmatex {
   overflow-x: auto;
   overflow-y: hidden;
-  max-width: 100%;
-  -webkit-overflow-scrolling: touch;
-  padding: 0.4rem 0;
-  margin: 0.8rem 0;
-}
-
-.katex-display > .katex {
-  max-width: 100%;
-  text-align: center;
-}
-
-/* Ensure callouts contain and gracefully scroll wide inner content on mobile */
-.md-typeset .admonition,
-.md-typeset details {
-  max-width: 100%;
-  overflow-x: auto;
+  padding: 0.25rem 0;
 }
 
 /* ==========================================================================

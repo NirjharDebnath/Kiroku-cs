@@ -18,14 +18,7 @@ Asymptotic notations describe the limiting behavior of a function as $n \to \inf
 | **Little-$o$ (Strict Upper)** | $\forall \, c > 0, \exists \, n_0 \ge 1 \text{ such that } 0 \le f(n) < c \cdot g(n), \; \forall n \ge n_0$ | $= 0$ | $f(n) < g(n)$ |
 | **Little-$\omega$ (Strict Lower)** | $\forall \, c > 0, \exists \, n_0 \ge 1 \text{ such that } 0 \le c \cdot g(n) < f(n), \; \forall n \ge n_0$ | $= \infty$ | $f(n) > g(n)$ |
 
-$$
-\boxed{
-\begin{aligned}
-f(n) = \Theta(g(n)) \iff \; &f(n) = \mathcal{O}(g(n)) \\
-&\text{and } f(n) = \Omega(g(n))
-\end{aligned}
-}
-$$
+$$ \boxed{f(n) = \Theta(g(n)) \iff f(n) = \mathcal{O}(g(n)) \quad \text{and} \quad f(n) = \Omega(g(n))} $$
 
 !!! tip "💡 Pro Tip: Limit Quotient Test"
     To compare any two positive monotonic functions $f(n)$ and $g(n)$ on pen and paper without choosing constants $c$ and $n_0$:
@@ -43,15 +36,7 @@ $$
 
 When ordering asymptotic growth rates, apply the standard growth ladder (from slowest to fastest):
 
-$$
-\boxed{
-\begin{aligned}
-c &< \log(\log n) < \log n < (\log n)^k < \sqrt{n} \\
-&< n < n \log n < n^2 < n^k \\
-&< 2^n < c^n < n! < n^n
-\end{aligned}
-}
-$$
+$$ \boxed{c < \log(\log n) < \log n < (\log n)^k < n^\epsilon < n < n \log n < n^2 < n^k < 2^n < c^n < n! < n^n} $$
 
 *(where $c > 1$, $k > 1$, and $0 < \epsilon < 1$.)*
 
@@ -152,12 +137,7 @@ for (int i = 1; i <= n; i *= 2) {
   - $i = 2^k$ (up to $n$) $\implies j$ runs $2^k$ times.
 - **Total Work**:
 
-$$
-\begin{aligned}
-T(n) &= 1 + 2 + 4 + 8 + \dots + 2^{\lfloor \log_2 n \rfloor} \\
-&= \sum_{k=0}^{\lfloor \log_2 n \rfloor} 2^k = 2^{\lfloor \log_2 n \rfloor + 1} - 1 \approx 2n = \Theta(n)
-\end{aligned}
-$$
+$$ T(n) = 1 + 2 + 4 + 8 + \dots + 2^{\lfloor \log_2 n \rfloor} = \sum_{k=0}^{\lfloor \log_2 n \rfloor} 2^k = 2^{\lfloor \log_2 n \rfloor + 1} - 1 \approx 2n = \Theta(n) $$
 
 !!! tip "💡 Mental Shortcut: The Geometric Sum Principle"
     Whenever inner work is proportional to an index that doubles ($1 + 2 + 4 + 8 + \dots + n$), the sum is dominated by the **last term**:
@@ -177,12 +157,7 @@ for (int i = 1; i <= n; i++) {
 ```
 - **Summation**: For a fixed $i$, the inner loop runs $\lceil n / i \rceil$ times:
 
-$$
-\begin{aligned}
-T(n) &= \sum_{i=1}^n \frac{n}{i} = n \sum_{i=1}^n \frac{1}{i} = n \cdot H_n \\
-&= n \left( \ln n + \gamma + \mathcal{O}(1/n) \right) = \Theta(n \log n)
-\end{aligned}
-$$
+$$ T(n) = \sum_{i=1}^n \frac{n}{i} = n \sum_{i=1}^n \frac{1}{i} = n \cdot H_n = n \left( \ln n + \gamma + \mathcal{O}(1/n) \right) = \Theta(n \log n) $$
 
 ---
 
@@ -212,12 +187,7 @@ In this method, we repeatedly expand (unroll) the recurrence until a discernible
        
     5. **Apply Base Condition**: We reach base case $T(1)$ when $n - k = 1 \implies k = n - 1$:
        
-       $$
-       \begin{aligned}
-       T(n) &= T(1) + \sum_{j=0}^{n-2} (n - j) = 1 + [2 + 3 + 4 + \dots + n] \\
-       &= \sum_{i=1}^n i = \frac{n(n + 1)}{2} = \Theta(n^2)
-       \end{aligned}
-       $$
+       $$ T(n) = T(1) + \sum_{j=0}^{n-2} (n - j) = 1 + [2 + 3 + 4 + \dots + n] = \sum_{i=1}^n i = \frac{n(n + 1)}{2} = \Theta(n^2) $$
 
 ---
 

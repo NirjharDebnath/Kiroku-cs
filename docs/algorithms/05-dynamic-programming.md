@@ -41,15 +41,7 @@ However, picking Item 2 ($20$) and Item 3 ($30$) fills the knapsack completely w
 
 Let $DP[i][w]$ denote the maximum value achievable considering the first $i$ items with capacity $w$:
 
-$$
-\boxed{
-DP[i][w] = \begin{cases} 
-0 & \text{if } i = 0 \text{ or } w = 0 \\ 
-DP[i - 1][w] & \text{if } w_i > w \\ 
-\max\Big(DP[i - 1][w], \; v_i + DP[i - 1][w - w_i]\Big) & \text{if } w_i \le w 
-\end{cases}
-}
-$$
+$$ \boxed{DP[i][w] = \begin{cases} 0 & \text{if } i = 0 \text{ or } w = 0 \\ DP[i - 1][w] & \text{if } w_i > w \quad (\text{cannot include item } i) \\ \max\Big(DP[i - 1][w], \; v_i + DP[i - 1][w - w_i]\Big) & \text{if } w_i \le w \quad (\text{exclude vs. include}) \end{cases}} $$
 
 ???+ example "Step-by-Step Pen & Paper Trace: 0/1 Knapsack Table Construction"
     Items: $I_1(w=2, v=3), I_2(w=3, v=4), I_3(w=4, v=5), I_4(w=5, v=6)$. Capacity $W = 5$.
@@ -120,15 +112,7 @@ Given two strings $X = \langle x_1, x_2, \dots, x_m \rangle$ and $Y = \langle y_
 
 Let $L[i][j]$ be the length of the LCS of prefixes $X[1 \dots i]$ and $Y[1 \dots j]$:
 
-$$
-\boxed{
-L[i][j] = \begin{cases} 
-0 & \text{if } i = 0 \text{ or } j = 0 \\ 
-1 + L[i - 1][j - 1] & \text{if } X[i] == Y[j] \\ 
-\max(L[i - 1][j], \; L[i][j - 1]) & \text{if } X[i] \neq Y[j] 
-\end{cases}
-}
-$$
+$$ \boxed{L[i][j] = \begin{cases} 0 & \text{if } i = 0 \text{ or } j = 0 \\ 1 + L[i - 1][j - 1] & \text{if } X[i] == Y[j] \\ \max(L[i - 1][j], \; L[i][j - 1]) & \text{if } X[i] \neq Y[j] \end{cases}} $$
 
 ???+ example "Step-by-Step Pen & Paper Trace: LCS Table"
     Strings: $X = \text{"BDCABA"}$ ($m = 6$), $Y = \text{"ABCBDAB"}$ ($n = 7$).
@@ -163,14 +147,7 @@ Given a sequence (chain) of $n$ matrices $\langle A_1, A_2, \dots, A_n \rangle$ 
 
 Let $M[i, j]$ be the minimum scalar multiplications to compute $A_i \dots A_j$ ($1 \le i \le j \le n$):
 
-$$
-\boxed{
-M[i, j] = \begin{cases} 
-0 & \text{if } i = j \\ 
-\min_{i \le k < j} \Big( M[i, k] + M[k + 1, j] + d_{i - 1} d_k d_j \Big) & \text{if } i < j 
-\end{cases}
-}
-$$
+$$ \boxed{M[i, j] = \begin{cases} 0 & \text{if } i = j \\ \min_{i \le k < j} \Big( M[i, k] + M[k + 1, j] + d_{i - 1} \cdot d_k \cdot d_j \Big) & \text{if } i < j \end{cases}} $$
 
 ### 4.2 Pen & Paper Diagonal Filling Method
 Because $M[i, j]$ depends on entries where the chain length $(j - i)$ is smaller, the table must be filled **diagonal by diagonal** according to chain length $L = j - i + 1$:
