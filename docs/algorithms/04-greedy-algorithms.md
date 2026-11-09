@@ -75,29 +75,33 @@ Each job $J_i$ takes $1$ unit of time, has an integer deadline $d_i \ge 1$, and 
 4. If no such slot is available, discard the job.
 
 ???+ example "Step-by-Step Pen & Paper Trace: Job Sequencing"
-    Consider jobs with $(d_i, p_i)$: $J_1(2, 100), J_2(1, 19), J_3(2, 27), J_4(1, 25), J_5(3, 15)$.
-    
-    1. **Sorted by Profit**:
-       - $J_1$: Profit $100$, Deadline $2$
-       - $J_3$: Profit $27$, Deadline $2$
-       - $J_4$: Profit $25$, Deadline $1$
-       - $J_2$: Profit $19$, Deadline $1$
-       - $J_5$: Profit $15$, Deadline $3$
-    2. Max Deadline $= 3$. Timeline slots available: $[0-1], [1-2], [2-3]$.
-    3. Process $J_1$: Deadline 2 $\implies$ placed in slot **$[1-2]$**.
-    4. Process $J_3$: Deadline 2 $\implies$ slot $[1-2]$ is occupied. Place in latest free slot $\le 2$: slot **$[0-1]$**.
-    5. Process $J_4$: Deadline 1 $\implies$ slot $[0-1]$ is occupied, no free slot $\le 1$. **Rejected**.
-    6. Process $J_2$: Deadline 1 $\implies$ no free slot $\le 1$. **Rejected**.
-    7. Process $J_5$: Deadline 3 $\implies$ slot $[2-3]$ is free. Place in slot **$[2-3]$**.
-    
-    - **Selected Jobs**: $\{J_3, J_1, J_5\}$
-    - **Maximum Profit**: $27 + 100 + 15 = \mathbf{142}$.
+      Consider jobs with $(d_i, p_i)$ : 
+      <div style="overflow-x: auto; overflow-y: hidden;">
+      $$ J_1(2, 100), J_2(1, 19), J_3(2, 27), J_4(1, 25), J_5(3, 15). $$ 
+      </div>
+      
+      1. **Sorted by Profit**:
+         - $J_1$: Profit $100$, Deadline $2$
+         - $J_3$: Profit $27$, Deadline $2$
+         - $J_4$: Profit $25$, Deadline $1$
+         - $J_2$: Profit $19$, Deadline $1$
+         - $J_5$: Profit $15$, Deadline $3$
+      2. Max Deadline $= 3$. Timeline slots available: $[0-1], [1-2], [2-3]$.
+      3. Process $J_1$: Deadline 2 $\implies$ placed in slot **$[1-2]$**.
+      4. Process $J_3$: Deadline 2 $\implies$ slot $[1-2]$ is occupied. Place in latest free slot $\le 2$: slot **$[0-1]$**.
+      5. Process $J_4$: Deadline 1 $\implies$ slot $[0-1]$ is occupied, no free slot $\le 1$. **Rejected**.
+      6. Process $J_2$: Deadline 1 $\implies$ no free slot $\le 1$. **Rejected**.
+      7. Process $J_5$: Deadline 3 $\implies$ slot $[2-3]$ is free. Place in slot **$[2-3]$**.
+      
+      - **Selected Jobs**: $\{J_3, J_1, J_5\}$
+      - **Maximum Profit**: $27 + 100 + 15 = \mathbf{142}$.
 
 !!! tip "💡 Complexity Optimization via Disjoint Set Union (DSU)"
-    - Standard array scanning takes $\mathcal{O}(n \cdot \min(n, \max d_i)) \implies \mathcal{O}(n^2)$ time.
-    - Using a **Disjoint Set Union (DSU)** data structure where `find(d)` returns the latest available free slot $\le d$, and `union(d, d - 1)` connects it to the next available slot:
-      
-      $$ \text{Time Complexity} = \mathcal{O}(n \log n + n \cdot \alpha(d_{\max})) \approx \mathbf{\mathcal{O}(n \log n)} $$
+      - Standard array scanning takes $\mathcal{O}(n \cdot \min(n, \max d_i)) \implies \mathcal{O}(n^2)$ time.
+      - Using a **Disjoint Set Union (DSU)** data structure where `find(d)` returns the latest available free slot $\le d$, and `union(d, d - 1)` connects it to the next available slot:
+      <div style="overflow-x: auto; overflow-y: hidden;">
+         $$ \text{Time Complexity} = \mathcal{O}(n \log n + n \cdot \alpha(d_{\max})) \approx \mathbf{\mathcal{O}(n \log n)} $$
+      </div>
 
 ---
 
@@ -131,17 +135,18 @@ Huffman coding produces an optimal **prefix-free code** (no code is a prefix of 
 
 ???+ example "Step-by-Step Pen & Paper Trace: Huffman Coding"
     Characters and Frequencies: $A: 45, B: 13, C: 12, D: 16, E: 9, F: 5$.
-    
-    1. **Min-Heap**: $[F(5), E(9), C(12), B(13), D(16), A(45)]$.
-    2. Extract $F(5)$ and $E(9) \implies$ merge into $N_1(14)$.
-       Heap: $[C(12), B(13), N_1(14), D(16), A(45)]$.
-    3. Extract $C(12)$ and $B(13) \implies$ merge into $N_2(25)$.
-       Heap: $[N_1(14), D(16), N_2(25), A(45)]$.
-    4. Extract $N_1(14)$ and $D(16) \implies$ merge into $N_3(30)$.
-       Heap: $[N_2(25), N_3(30), A(45)]$.
-    5. Extract $N_2(25)$ and $N_3(30) \implies$ merge into $N_4(55)$.
-       Heap: $[A(45), N_4(55)]$.
-    6. Extract $A(45)$ and $N_4(55) \implies$ merge into Root $R(100)$.
+
+    $$
+    \begin{array}{ll}
+    \text{1. Min-Heap:} & [F(5), E(9), C(12), B(13), D(16), A(45)] \\
+    \text{2. Extract } F(5) \text{ and } E(9) \implies \text{merge into } N_1(14). & \text{Heap: } [C(12), B(13), N_1(14), D(16), A(45)] \\
+    \text{3. Extract } C(12) \text{ and } B(13) \implies \text{merge into } N_2(25). & \text{Heap: } [N_1(14), D(16), N_2(25), A(45)] \\
+    \text{4. Extract } N_1(14) \text{ and } D(16) \implies \text{merge into } N_3(30). & \text{Heap: } [N_2(25), N_3(30), A(45)] \\
+    \text{5. Extract } N_2(25) \text{ and } N_3(30) \implies \text{merge into } N_4(55). & \text{Heap: } [A(45), N_4(55)] \\
+    \text{6. Extract } A(45) \text{ and } N_4(55) \implies \text{merge into Root } R(100). & 
+    \end{array}
+    $$
+
     
     **Codeword Table**:
     
@@ -157,8 +162,9 @@ Huffman coding produces an optimal **prefix-free code** (no code is a prefix of 
     - **Total Compressed Bits** $= 45 + 39 + 36 + 48 + 36 + 20 = \mathbf{224 \text{ bits}}$.
     - Fixed-length encoding ($3$ bits per char for $6$ characters) $= 100 \times 3 = 300 \text{ bits}$.
     - **Average Codeword Length**:
-      
-      $$ L_{\text{avg}} = \sum_{i=1}^n p_i \cdot l_i = \frac{224}{100} = \mathbf{2.24 \text{ bits/character}} $$
+      <div style="overflow-x: auto; overflow-y: hidden;">
+         $$ L_{\text{avg}} = \sum_{i=1}^n p_i \cdot l_i = \frac{224}{100} = \mathbf{2.24 \text{ bits/character}} $$
+      </div>
 
 ---
 

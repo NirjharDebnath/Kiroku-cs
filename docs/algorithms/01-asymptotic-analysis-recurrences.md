@@ -141,7 +141,7 @@ $$ T(n) = 1 + 2 + 4 + 8 + \dots + 2^{\lfloor \log_2 n \rfloor} = \sum_{k=0}^{\lf
 
 !!! tip "💡 Mental Shortcut: The Geometric Sum Principle"
     Whenever inner work is proportional to an index that doubles ($1 + 2 + 4 + 8 + \dots + n$), the sum is dominated by the **last term**:
-    
+
     $$ \sum_{k=0}^{\log_2 n} 2^k = 2n - 1 = \Theta(n) \quad (\text{NOT } \Theta(n \log n)!) $$
 
 ---
@@ -175,19 +175,19 @@ In this method, we repeatedly expand (unroll) the recurrence until a discernible
     1. **Step 1**: $T(n) = T(n - 1) + n$
     2. **Step 2**: Substitute $T(n - 1) = T(n - 2) + (n - 1)$:
        
-       $$ T(n) = [T(n - 2) + (n - 1)] + n = T(n - 2) + (n - 1) + n $$
+    $$ T(n) = [T(n - 2) + (n - 1)] + n = T(n - 2) + (n - 1) + n $$
        
     3. **Step 3**: Substitute $T(n - 2) = T(n - 3) + (n - 2)$:
        
-       $$ T(n) = T(n - 3) + (n - 2) + (n - 1) + n $$
+    $$ T(n) = T(n - 3) + (n - 2) + (n - 1) + n $$
        
     4. **Step $k$ (Generalization)**:
        
-       $$ T(n) = T(n - k) + \sum_{j=0}^{k-1} (n - j) $$
+    $$ T(n) = T(n - k) + \sum_{j=0}^{k-1} (n - j) $$
        
     5. **Apply Base Condition**: We reach base case $T(1)$ when $n - k = 1 \implies k = n - 1$:
-       
-       $$ T(n) = T(1) + \sum_{j=0}^{n-2} (n - j) = 1 + [2 + 3 + 4 + \dots + n] = \sum_{i=1}^n i = \frac{n(n + 1)}{2} = \Theta(n^2) $$
+    
+    $$ T(n) = T(1) + \sum_{j=0}^{n-2} (n - j) = 1 + [2 + 3 + 4 + \dots + n] = \sum_{i=1}^n i = \frac{n(n + 1)}{2} = \Theta(n^2) $$
 
 ---
 
@@ -245,7 +245,7 @@ When $f(n) = \Theta(n^{\log_b a} \log^k n)$ for any real $k$:
     2. **$b \le 1$**: Subproblem size is not strictly shrinking by division.
     3. **Non-polynomial gap between $f(n)$ and $n^{\log_b a}$**:
        
-       $$ T(n) = 2T(n/2) + n \sin n \quad \text{or} \quad T(n) = 2T(n/2) + n^{\log \log n} $$
+    $$ T(n) = 2T(n/2) + n \sin n \quad \text{or} \quad T(n) = 2T(n/2) + n^{\log \log n} $$
        
     4. **Regularity condition violated in Case 3**: Even if $f(n) = \Omega(n^{\log_b a + \epsilon})$, if $a f(n/b) \le c f(n)$ fails for all $c < 1$, Master Theorem does not hold.
 
